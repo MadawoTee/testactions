@@ -3,8 +3,12 @@ runs:
   steps:
     - name: Step 1
       run: echo "running operations/_scripts/deploy/deploy.sh"  
-    - name: Step 2
-      run: operations/deploy.sh
+    
+    - name: Step 2     
+      run: |       
+        echo "Hello from the shell script"
+        
+        # Example of running a shell script file from your repository:
+         chmod +x operations/deploy.sh
+        ./operations/deploy.sh
 
-on:
-  # Define the trigger events here
