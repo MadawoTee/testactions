@@ -1,8 +1,12 @@
    
-- name: Step 2 
- 
-  run: |       
-    echo "Hello from the shell script"      
-    chmod +x operations/deploy.sh
-    ./operations/deploy.sh
+runs:
+  using: 'composite'
+  steps:
+
+    name: test works
+    shell: bash
+    run: |       
+      echo "Hello from the shell script"      
+      chmod +x operations/deploy.sh
+      ./operations/deploy.sh
 
