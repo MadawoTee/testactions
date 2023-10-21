@@ -1,4 +1,10 @@
-run: |       
-  echo "running operations/_scripts/deploy/deploy.sh"       
-  operations/deploy.sh
-       
+runs:
+  using: 'composite'
+  steps:
+    - name: Step 1
+      run: echo "running operations/_scripts/deploy/deploy.sh"  
+    - name: Step 2
+      run: operations/deploy.sh
+
+on:
+  # Define the trigger events here
