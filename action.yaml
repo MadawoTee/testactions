@@ -1,0 +1,4 @@
+run: |       
+  echo "running operations/_scripts/deploy/deploy.sh"       
+  operations/deploy.sh
+       
