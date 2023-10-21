@@ -1,14 +1,8 @@
-runs:
-  using: 'composite'
-  steps:
-    - name: Step 1
-      run: echo "running operations/_scripts/deploy/deploy.sh"  
-    
-    - name: Step 2  
-      id: deploy
-      shell: bash   
-      run: |       
-        echo "Hello from the shell script"      
-        chmod +x operations/deploy.sh
-        ./operations/deploy.sh
+   
+- name: Step 2 
+ 
+  run: |       
+    echo "Hello from the shell script"      
+    chmod +x operations/deploy.sh
+    ./operations/deploy.sh
 
