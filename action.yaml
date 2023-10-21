@@ -6,6 +6,7 @@ runs:
       shell: bash
       run: |       
         echo "Hello from the shell script"      
-        chmod +x operations/deploy.sh
+        chmod +x /operations/deploy.sh
+         echo "Hello from the shell script"  
         ./operations/deploy.sh
 
