@@ -34,7 +34,7 @@ jobs:
           echo "public_ip=$(terraform output -raw public_ip)" >> $GITHUB_ENV
 
       - name: Set up Ansible
-        uses: appleboy/ansible-action@v2
+        uses: appleboy/ansible-action@v1
         with:
           playbook: ./ansible-playbook.yml
         env:
