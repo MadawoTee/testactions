@@ -37,6 +37,7 @@ jobs:
         #   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         #   T_VAR_AWS_DEFAULT_REGION: af-south-1 
     
+        #   T_VAR_AWS_DEFAULT_REGION: af-south-1 
      
       - name: Setup Python
         uses: actions/setup-python@v2
