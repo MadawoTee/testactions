@@ -23,7 +23,7 @@ resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0" # Change to your desired AMI
   instance_type = "t2.micro"
   key_name      = aws_key_pair.example.key_name
-  subnet_id                   = data.aws_subnet.selected[0].id
+  subnet_id                   = [ "subnet-0ad95192385c5946c","subnet-092a2181edb1601c5" ]
 }
 
 output "key_pair_name" {
