@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - main
-env:
-  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-  T_VAR_AWS_DEFAULT_REGION: af-south-1 
+# env:
+#   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+#   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+#   T_VAR_AWS_DEFAULT_REGION: af-south-1 
   
 
 jobs:
@@ -30,8 +30,14 @@ jobs:
       - name: Get Key Pair and Public IP
         id: terraform_outputs
         run: |
-          echo "key_pair_name=$(terraform output -raw example-key)" >> $GITHUB_ENV
+          echo "key_pair_name=$(terraform output -raw key_pair_name)" >> $GITHUB_ENV
           echo "public_ip=$(terraform output -raw public_ip)" >> $GITHUB_ENV
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          T_VAR_AWS_DEFAULT_REGION: af-south-1 
+    
+     
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
