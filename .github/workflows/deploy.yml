@@ -1,0 +1,45 @@
+name: Deploy EC2 with Ansible
+
+on:
+  push:
+    branches:
+      - main
+env:
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+  T_VAR_AWS_DEFAULT_REGION: af-south-1 
+  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Create EC2 Instance
+        run: terraform apply -auto-approve
+
+      - name: Get Key Pair and Public IP
+        id: terraform_outputs
+        run: |
+          echo "key_pair_name=$(terraform output -raw key_pair_name)" >> $GITHUB_ENV
+          echo "public_ip=$(terraform output -raw public_ip)" >> $GITHUB_ENV
+
+      - name: Set up Ansible
+        uses: appleboy/ansible-action@v2
+        with:
+          playbook: ./ansible-playbook.yml
+        env:
+          KEY_PAIR: ${{ env.key_pair_name }}
+          PUBLIC_IP: ${{ env.public_ip }}
+
+      - name: Clean up
+        run: terraform destroy -auto-approve
