@@ -30,7 +30,7 @@ jobs:
       - name: Get Key Pair and Public IP
         id: terraform_outputs
         run: |
-          echo "key_pair_name=$(terraform output -raw key_pair_name)" >> $GITHUB_ENV
+          echo "key_pair_name=$(terraform output -raw example-key)" >> $GITHUB_ENV
           echo "public_ip=$(terraform output -raw public_ip)" >> $GITHUB_ENV
       - name: Setup Python
         uses: actions/setup-python@v2
