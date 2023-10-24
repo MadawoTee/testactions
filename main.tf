@@ -2,15 +2,28 @@ provider "aws" {
   region = "af-south-1" # Change to your desired region
 }
 
+resource "tls_private_key" "key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "example" {
   key_name   = "example-key"
-  public_key = file("${path.module}/your_public_key.pub")
+#   public_key = file("${path.module}/your_public_key.pub")
+   public_key = tls_private_key.key.public_key_openssh
 }
+
+# // Creates a secret manager secret for the public key
+# resource "aws_secretsmanager_secret" "keys_sm_secret" {
+#   count              = var.create_keypair_sm_entry ? 1 : 0
+#   name   = "${var.aws_resource_identifier_supershort}-sm-${random_string.random.result}"
+# }
 
 resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0" # Change to your desired AMI
   instance_type = "t2.micro"
   key_name      = aws_key_pair.example.key_name
+  subnet_id                   = data.aws_subnet.selected[0].id
 }
 
 output "key_pair_name" {
