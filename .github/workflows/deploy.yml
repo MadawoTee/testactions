@@ -30,7 +30,7 @@ jobs:
       - name: Get Key Pair and Public IP
         id: terraform_outputs
         run: |
-          echo "key_pair_name=$(terraform output -raw key_pair_name)" >> "$GITHUB_ENV"
+         
           echo "public_ip=$(terraform output -raw public_ip)" >> "$GITHUB_ENV"
         # env:
         #   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i ${{ env.public_ip }},' -e ${{ env.public_ip }} ./ansible-playbook.yml
+          ansible-playbook -i ${{ env.public_ip }},' -e ${{ env.key_pair_name }} ./ansible-playbook.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
         if: runner.os == 'Linux'
