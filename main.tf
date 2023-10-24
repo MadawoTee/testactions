@@ -21,7 +21,7 @@ resource "aws_key_pair" "example" {
 
 resource "aws_instance" "example" {
   ami           = "ami-05759acc7d8973892" # Change to your desired AMI
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   key_name      = aws_key_pair.example.key_name
   subnet_id                   = "subnet-0ad95192385c5946c"
 }
