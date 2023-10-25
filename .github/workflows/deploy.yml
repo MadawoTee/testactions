@@ -26,7 +26,7 @@ jobs:
       run: echo "::set-output name=ip::$(terraform output ec2_private_ip)"
 
     - name: Setup Ansible
-      uses: technosophos/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
