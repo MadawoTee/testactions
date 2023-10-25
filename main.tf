@@ -66,6 +66,6 @@ output "key_pair_name" {
   value = aws_key_pair.example.key_name
 }
 
-output "public_ip" {
-  value = aws_instance.example.public_ip
-}
+# output "public_ip" {
+#   value = aws_instance.example.public_ip
+# }
