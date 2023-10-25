@@ -32,6 +32,10 @@ jobs:
       id: ec2_ip
       run: echo "::set-output name=ip::$(terraform output ec2_private_ip)"
 
+    - name: Get Private Key
+      id: private_key
+      run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
+
     - name: Setup Ansible
       uses: actions/setup-python@v2
       with:
@@ -40,10 +44,14 @@ jobs:
     - name: Install Ansible
       run: pip install ansible
 
-    - name: Run Ansible Playbook
+    # - name: Run Ansible Playbook
+    #   env:
+    #     PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
+    #     PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET }}
+    #   - name: Run Ansible Playbook
       env:
         PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
-        PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET }}
+        PRIVATE_KEY: ${{ steps.private_key.outputs.mykey }}    
       run: |
         echo "$PRIVATE_KEY" > /tmp/private_key.pem
         chmod 600 /tmp/private_key.pem

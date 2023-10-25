@@ -58,6 +58,10 @@ output "ec2_private_ip" {
    value = aws_instance.example.private_ip
 }
 
+output "myprivate_key"{
+  value=  tls_private_key.example.public_key_openssh 
+}
+
 output "key_pair_name" {
   value = aws_key_pair.example.key_name
 }
