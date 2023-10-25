@@ -48,7 +48,7 @@ jobs:
     #   env:
     #     PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
     #     PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET }}
-    #   - name: Run Ansible Playbook
+    - name: Run Ansible Playbook
       env:
         PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
         PRIVATE_KEY: ${{ steps.private_key.outputs.mykey }}    
