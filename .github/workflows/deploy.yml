@@ -44,7 +44,7 @@ jobs:
 
       - name: Using the previously defined environment variable
         run: |      
-          echo $(terraform output -raw example-key) 
+          echo $(terraform output -raw  key_pair_name) 
         #   echo "EOF" >> $GITHUB_ENV
 
         # run: |
