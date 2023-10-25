@@ -29,6 +29,29 @@ resource "aws_instance" "example" {
   instance_type = "t3.micro"
   key_name      = aws_key_pair.example.key_name
   subnet_id                   = "subnet-0ad95192385c5946c"
+  security_groups = [aws_security_group.example.name]
+  iam_instance_profile = "ssm-ec2-service-role"
+}
+
+
+resource "aws_security_group" "example" {
+  name        = "allow-ssh"
+  description = "Allow SSH access"
+  vpc_id      = "vpc-031729aa862405f6b"  # Replace with your VPC ID
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # You can restrict this to specific IP ranges
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 output "ec2_private_ip" {
