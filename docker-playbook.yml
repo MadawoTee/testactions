@@ -1,0 +1,22 @@
+---
+- name: Install Docker and Run Container
+  hosts: your_ec2_private_ip
+  become: yes
+
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        update_cache: yes
+
+    - name: Start Docker Service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Run Docker Container
+      docker_container:
+        name: my_container
+        image: your_docker_image
+        state: started

@@ -2,15 +2,20 @@ provider "aws" {
   region = "af-south-1" # Change to your desired region
 }
 
-resource "tls_private_key" "key" {
+# resource "tls_private_key" "key" {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+# }
+
+resource "tls_private_key" "example" {
   algorithm = "RSA"
-  rsa_bits  = 4096
+  rsa_bits  = 2048
 }
 
 resource "aws_key_pair" "example" {
-  key_name   = "example-key"
+  key_name   = "my-key-pair"
 #   public_key = file("${path.module}/your_public_key.pub")
-   public_key = tls_private_key.key.public_key_openssh
+   public_key = tls_private_key.example.public_key_openssh
 }
 
 # // Creates a secret manager secret for the public key
