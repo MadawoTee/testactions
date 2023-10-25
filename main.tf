@@ -28,8 +28,8 @@ resource "aws_instance" "example" {
   ami           = "ami-05759acc7d8973892" # Change to your desired AMI
   instance_type = "t3.micro"
   key_name      = aws_key_pair.example.key_name
-#   subnet_id                   = "subnet-0ad95192385c5946c"
-  security_groups = [aws_security_group.example.name]
+  subnet_id                   = "subnet-0ad95192385c5946c"
+  security_groups = [aws_security_group.example.id]
   iam_instance_profile = "ssm-ec2-service-role"
 }
 
