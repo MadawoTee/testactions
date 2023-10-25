@@ -30,10 +30,13 @@ jobs:
       - name: Get Key Pair and Public IP
         id: terraform_outputs
         run: |
-         
+          echo "key_pair_name<<EOF" >> $GITHUB_ENV
+          echo $(terraform output -raw example-key) >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           echo "public_ip=$(terraform output -raw public_ip)" >> $GITHUB_ENV
-        env:
-          TERRAFORM_CLI_PATH: /home/runner/work/_temp/e51774d2-50e6-4bf3-9430-f11022c63cb6
+        # env:
+        #   TERRAFORM_CLI_PATH: /home/runner/work/_temp/e51774d2-50e6-4bf3-9430-f11022c63cb6
         # env:
         #   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
         #   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
