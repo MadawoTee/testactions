@@ -49,5 +49,5 @@ jobs:
         chmod 600 /tmp/private_key.pem
         ansible-playbook -i "$PRIVATE_IP," --key-file /tmp/private_key.pem docker-playbook.yml
 
-    - name: Destroy Terraform Resources
-      run: terraform destroy -auto-approve
+    # - name: Destroy Terraform Resources
+    #   run: terraform destroy -auto-approve
