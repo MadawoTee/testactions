@@ -40,7 +40,13 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: Using the previously defined environment variable
         run: |
-          echo ${{ env.ONE_LINE_TEXT_ENV_VAR }}    
+          echo ${{ env.ONE_LINE_TEXT_ENV_VAR }}   
+
+        run: |
+         
+          echo $(terraform output -raw example-key) 
+        #   echo "EOF" >> $GITHUB_ENV
+
         # run: |
         #   echo "key_pair_name<<EOF" >> $GITHUB_ENV
         #   echo $(terraform output -raw example-key) >> $GITHUB_ENV
