@@ -31,6 +31,10 @@ resource "aws_instance" "example" {
   subnet_id                   = "subnet-0ad95192385c5946c"
 }
 
+output "ec2_private_ip" {
+   value = aws_instance.example.private_ip
+}
+
 output "key_pair_name" {
   value = aws_key_pair.example.key_name
 }
