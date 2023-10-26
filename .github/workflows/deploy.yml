@@ -17,24 +17,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        tf_version: 1.0.x
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v1
+    #   with:
+    #     tf_version: 1.0.x
 
-    - name: Initialize Terraform
-      run: terraform init
+    # - name: Initialize Terraform
+    #   run: terraform init
 
-    - name: Apply Terraform
-      run: terraform apply -auto-approve
+    # - name: Apply Terraform
+    #   run: terraform apply -auto-approve
 
-    - name: Get EC2 Public IP
-      id: ec2_ip
-      run: echo "::set-output name=ip::$(terraform output public_ip)"
+    # - name: Get EC2 Public IP
+    #   id: ec2_ip
+    #   run: echo "::set-output name=ip::$(terraform output public_ip)"
 
-    - name: Get Private Key
-      id: private_key
-      run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
+    # - name: Get Private Key
+    #   id: private_key
+    #   run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
 
     - name: Setup Ansible
       uses: actions/setup-python@v2
@@ -49,13 +49,18 @@ jobs:
     #     PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
     #   cccccc  PRIVATE_KEY: ${{ secrets.YOUR_PRIVATE_KEY_SECRET }}
     - name: Run Ansible Playbook
-      env:
-        PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
-        PRIVATE_KEY: ${{ steps.private_key.outputs.mykey }}    
-      run: |
-        echo "$PRIVATE_KEY" > /tmp/private_key.pem
-        chmod 600 /tmp/private_key.pem
-        ansible-playbook -vvv -i "$PRIVATE_IP," --key-file /tmp/private_key.pem docker-playbook.yml -e "PRIVATE_IP=$PRIVATE_IP"
+      # env:
+      #   PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
+      #   PRIVATE_KEY: ${{ steps.private_key.outputs.mykey }}    
+      run: |        
+        ansible "34.254.187.136," -m ping
+      
 
     # - name: Destroy Terraform Resources
     #   run: terraform destroy -auto-approve
+
+      #  run: |
+      #   echo "$PRIVATE_KEY" > /tmp/private_key.pem
+      #   chmod 600 /tmp/private_key.pem
+      #   ansible "$PRIVATE_IP," -m ping
+      #   ansible-playbook -vvv -i "$PRIVATE_IP," --key-file /tmp/private_key.pem docker-playbook.yml -e "PRIVATE_IP=$PRIVATE_IP"
