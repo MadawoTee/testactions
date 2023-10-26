@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  hosts: "{{ PRIVATE_IP }}"
+  hosts: ${{ steps.ec2_ip.outputs.ip }}
   become: yes
 
   tasks:
