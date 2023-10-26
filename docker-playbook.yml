@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  hosts: your_ec2_private_ip
+  hosts: "{{ PRIVATE_IP }}""
   become: yes
 
   tasks:
