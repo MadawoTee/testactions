@@ -60,7 +60,8 @@ resource "aws_security_group" "example" {
   }
 
   tags = {
-    Name = "Ansibletest"    
+    Name = "Ansibletest"   
+    NaTestme = "Ansibletest"  
   }
 }
 
