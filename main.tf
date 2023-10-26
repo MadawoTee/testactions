@@ -34,6 +34,7 @@ resource "aws_instance" "example" {
   subnet_id                   = "subnet-0eeed545965bcc422"
   security_groups = [aws_security_group.example.id]
   iam_instance_profile = "ec2-ssm-service-role-alpha"
+  associate_public_ip_address =   "true"
   tags = {
     Name = "Ansibletest"    
   }

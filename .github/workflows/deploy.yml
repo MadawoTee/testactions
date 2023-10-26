@@ -28,7 +28,7 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -auto-approve
 
-    - name: Get EC2 Private IP
+    - name: Get EC2 Public IP
       id: ec2_ip
       run: echo "::set-output name=ip::$(terraform output public_ip)"
 
