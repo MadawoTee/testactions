@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  hosts: {{ ip }}
+  hosts: "{{ ip }}"
   become: yes
 
   tasks:
