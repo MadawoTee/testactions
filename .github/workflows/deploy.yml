@@ -53,7 +53,7 @@ jobs:
       #   PRIVATE_IP: ${{ steps.ec2_ip.outputs.ip }}
       #   PRIVATE_KEY: ${{ steps.private_key.outputs.mykey }}    
       run: |        
-        ansible "34.254.187.136," -m ping
+        ansible 34.254.187.136 -m ping
       
 
     # - name: Destroy Terraform Resources
