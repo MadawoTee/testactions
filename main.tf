@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "af-south-1" # Change to your desired region
+  region = "eu-west-1" # Change to your desired region
 }
 
 # resource "tls_private_key" "key" {
@@ -31,7 +31,7 @@ resource "aws_instance" "example" {
   ami           = "ami-05759acc7d8973892" # Change to your desired AMI
   instance_type = "t3.micro"
   key_name      = aws_key_pair.example.key_name
-  subnet_id                   = "subnet-0ad95192385c5946c"
+  subnet_id                   = "subnet-0eeed545965bcc422"
   security_groups = [aws_security_group.example.id]
   iam_instance_profile = "ssm-ec2-service-role"
   tags = {
@@ -43,7 +43,7 @@ resource "aws_instance" "example" {
 resource "aws_security_group" "example" {
   name        = "allow-ssh"
   description = "Allow SSH access"
-  vpc_id      = "vpc-031729aa862405f6b"  # Replace with your VPC ID
+  vpc_id      = "vpc-01f8cf2855398cc3c"  # Replace with your VPC ID
 
   ingress {
     from_port   = 22
