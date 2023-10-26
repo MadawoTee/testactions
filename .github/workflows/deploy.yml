@@ -30,7 +30,7 @@ jobs:
 
     - name: Get EC2 Private IP
       id: ec2_ip
-      run: echo "::set-output name=ip::$(terraform output ec2_private_ip)"
+      run: echo "::set-output name=ip::$(terraform output public_ip)"
 
     - name: Get Private Key
       id: private_key
