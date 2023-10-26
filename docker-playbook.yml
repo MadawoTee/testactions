@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  hosts: all 
+  hosts: 34.254.187.136
   become: yes
 
   tasks:
