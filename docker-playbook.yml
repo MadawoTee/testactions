@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  hosts: "{{ PRIVATE_IP }}"
+  hosts: PRIVATE_IP 
   become: yes
 
   tasks:
