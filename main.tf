@@ -16,6 +16,9 @@ resource "aws_key_pair" "example" {
   key_name   = "my-key-pair"
 #   public_key = file("${path.module}/your_public_key.pub")
    public_key = tls_private_key.example.public_key_openssh
+   tags = {
+    Name = "Ansibletest"    
+  }
 }
 
 # // Creates a secret manager secret for the public key
@@ -31,6 +34,9 @@ resource "aws_instance" "example" {
   subnet_id                   = "subnet-0ad95192385c5946c"
   security_groups = [aws_security_group.example.id]
   iam_instance_profile = "ssm-ec2-service-role"
+  tags = {
+    Name = "Ansibletest"    
+  }
 }
 
 
@@ -51,6 +57,10 @@ resource "aws_security_group" "example" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Ansibletest"    
   }
 }
 
