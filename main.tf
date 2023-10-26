@@ -33,7 +33,7 @@ resource "aws_instance" "example" {
   key_name      = aws_key_pair.example.key_name
   subnet_id                   = "subnet-0eeed545965bcc422"
   security_groups = [aws_security_group.example.id]
-  iam_instance_profile = "ssm-ec2-service-role"
+  iam_instance_profile = "ec2-ssm-service-role-alpha"
   tags = {
     Name = "Ansibletest"    
   }
