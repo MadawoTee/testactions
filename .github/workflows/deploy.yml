@@ -56,6 +56,7 @@ jobs:
       #   ansible 34.254.187.136 -m ping
       run: |
         echo "$PRIVATE_IP" 
+        ansible-inventory -i hosts.ini --list
         ansible -i hosts ec2 -m ping
         
     # - name: Destroy Terraform Resources
