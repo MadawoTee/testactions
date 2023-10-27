@@ -57,7 +57,7 @@ jobs:
       run: |
         echo "$PRIVATE_IP" 
         ansible-inventory -i hosts.ini --list
-        ansible -i hosts ec2 -m ping
+        ansible -i hosts.ini ec2 -m ping
         
     # - name: Destroy Terraform Resources
     #   run: terraform destroy -auto-approve
