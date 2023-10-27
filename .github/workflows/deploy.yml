@@ -58,7 +58,7 @@ jobs:
         echo "$PRIVATE_IP"         
         echo "$PRIVATE_KEY" > /tmp/private_key.pem
         chmod 600 /tmp/private_key.pem   
-        ping 34.254.187.136 
+        ansible-playbook -i inventory.ini docker-playbook.yml
         
     # - name: Destroy Terraform Resources
     #   run: terraform destroy -auto-approve
