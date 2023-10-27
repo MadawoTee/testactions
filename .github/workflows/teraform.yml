@@ -22,9 +22,9 @@ jobs:
         run: pip install ansible
 
       - name: Run Ansible Playbook
-      env:
-        PRIVATE_IP: ${{ secrets.MYPLUBICIP }}
-        PRIVATE_KEY: ${{ secrets.MYPRIVATEKEY }}    
+        env:
+          PRIVATE_IP: ${{ secrets.MYPLUBICIP }}
+          PRIVATE_KEY: ${{ secrets.MYPRIVATEKEY }}    
 
       - name: Run Ansible Connection Test      
         run: |
