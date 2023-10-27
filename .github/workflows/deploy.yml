@@ -58,7 +58,7 @@ jobs:
         echo "$PRIVATE_IP"         
         echo "$PRIVATE_KEY" > /tmp/private_key.pem
         chmod 600 /tmp/private_key.pem   
-        ssh -i /tmp/private_key.pem ec2-user@34.254.187.136    
+        ssh -i /tmp/private_key.pem ubuntu@34.254.187.136    
         
     # - name: Destroy Terraform Resources
     #   run: terraform destroy -auto-approve
