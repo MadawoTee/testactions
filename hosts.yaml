@@ -1,0 +1,2 @@
+[ec2]
+34.254.187.136 ansible_ssh_user=ubuntu

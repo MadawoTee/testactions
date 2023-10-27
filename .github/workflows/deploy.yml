@@ -56,7 +56,7 @@ jobs:
       #   ansible 34.254.187.136 -m ping
       run: |
         echo "$PRIVATE_IP" 
-        ansible -i $PRIVATE_IP -m ping
+        ansible -i hosts ec2 -m ping
         
     # - name: Destroy Terraform Resources
     #   run: terraform destroy -auto-approve
