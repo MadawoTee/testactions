@@ -27,13 +27,6 @@ resource "aws_key_pair" "example" {
 #   name   = "${var.aws_resource_identifier_supershort}-sm-${random_string.random.result}"
 # }
 
-# Access key
-# Secret access key
-
-# AKIAUJ62OUGNOVLYWZYO
-
-# 9dNUvR9wxJ0CgPL7IVMuSch0Mk0U8/uNq0VoAP8X
-
 resource "aws_instance" "example" {
   ami           = "ami-0694d931cee176e7d" # Change to your desired AMI
   instance_type = "t3.micro"
