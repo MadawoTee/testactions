@@ -25,19 +25,19 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    # - name: Apply Terraform
-    #   run: terraform apply -auto-approve
-
     - name: Apply Terraform
-      run: terraform destroy -auto-approve
+      run: terraform apply -auto-approve
 
-    # - name: Get EC2 Public IP
-    #   id: ec2_ip
-    #   run: echo "::set-output name=ip::$(terraform output public_ip)"
+    # - name: Apply Terraform
+    #   run: terraform destroy -auto-approve
 
-    # - name: Get Private Key
-    #   id: private_key
-    #   run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
+    - name: Get EC2 Public IP
+      id: ec2_ip
+      run: echo "::set-output name=ip::$(terraform output public_ip)"
+
+    - name: Get Private Key
+      id: private_key
+      run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
 
     # - name: Setup Ansible
     #   uses: actions/setup-python@v2
