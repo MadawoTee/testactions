@@ -17,24 +17,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # - name: Setup Terraform
-    #   uses: hashicorp/setup-terraform@v1
-    #   with:
-    #     tf_version: 1.0.x
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        tf_version: 1.0.x
 
-    # - name: Initialize Terraform
-    #   run: terraform init
+    - name: Initialize Terraform
+      run: terraform init
 
-    # - name: Apply Terraform
-    #   run: terraform apply -auto-approve
+    - name: Apply Terraform
+      run: terraform apply -auto-approve
 
-    # - name: Get EC2 Public IP
-    #   id: ec2_ip
-    #   run: echo "::set-output name=ip::$(terraform output public_ip)"
+    - name: Get EC2 Public IP
+      id: ec2_ip
+      run: echo "::set-output name=ip::$(terraform output public_ip)"
 
-    # - name: Get Private Key
-    #   id: private_key
-    #   run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
+    - name: Get Private Key
+      id: private_key
+      run: echo "::set-output name=mykey::$(terraform output myprivate_key)"  
 
     - name: Setup Ansible
       uses: actions/setup-python@v2
