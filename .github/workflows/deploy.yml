@@ -22,8 +22,8 @@ jobs:
       with:
         tf_version: 1.0.x
 
-    # - name: Initialize Terraform
-    #   run: terraform init
+    - name: Initialize Terraform
+      run: terraform init
 
     # - name: Apply Terraform
     #   run: terraform apply -auto-approve
