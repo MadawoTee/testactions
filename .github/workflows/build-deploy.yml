@@ -2,10 +2,6 @@ name: Build and Deploy to EC2
 
 on:
   workflow_dispatch:
-# on:
-#   push:
-#     branches:
-#       - main
 
 jobs:
   build:
