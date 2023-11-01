@@ -1,7 +1,11 @@
 name: Provision EC2
 
-on: workflow_dispatch
-
+# on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+      
 jobs:
   runterraform:
     runs-on: ubuntu-latest
