@@ -1,6 +1,6 @@
 name: Build and Deploy to EC2
 
-on: 
+on:
   workflow_dispatch:
 # on:
 #   push:
