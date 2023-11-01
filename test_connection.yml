@@ -1,7 +1,0 @@
----
-- name: Test SSH connection
-  hosts: ec2-34-254-187-136.eu-west-1.compute.amazonaws.com
-  become: yes
-  tasks:
-    - name: Run a command
-      command: echo "Connection test successful"
