@@ -1,6 +1,7 @@
 name: Destroy EC2
 
-on: workflow_dispatch:
+on:
+  workflow_dispatch:
 
 jobs:
   runterraform:
