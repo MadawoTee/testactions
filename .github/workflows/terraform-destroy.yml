@@ -23,9 +23,9 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_wrapper: false
 
-      # - name: Terraform init
-      #   run: terraform init -upgrade
+      - name: Terraform init
+        run: terraform init -upgrade
 
-      # - name: Terraform apply
-      #   id: terraform
-      #   run: terraform destroy -auto-approve
+      - name: Terraform apply
+        id: terraform
+        run: terraform destroy -auto-approve
