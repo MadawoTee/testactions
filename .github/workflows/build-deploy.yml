@@ -7,11 +7,6 @@ on:
     types:
       - completed
 
-  workflow_run:
-    workflows: ["Provision EC2"]
-    type:
-      - complete
-
 jobs:
   build:
     name: Build
