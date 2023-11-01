@@ -51,7 +51,7 @@
         name: pm2
         global: yes
 
-     - name: Update all packages before installing Docker
+    - name: Update all packages before installing Docker
       yum:
         name: '*'
         state: latest
