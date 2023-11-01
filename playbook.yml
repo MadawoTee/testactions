@@ -23,11 +23,11 @@
     #     name: '*'
     #     state: latest
 
-    - name: Update all packages before installing Docker
-      yum:
-        name: '*'
-        state: latest
-        update_only: yes
+    # - name: Update all packages before installing Docker
+    #   yum:
+    #     name: '*'
+    #     state: latest
+    #     update_only: yes
 
     - name: Ensure a list of yum packages are installed
       yum:

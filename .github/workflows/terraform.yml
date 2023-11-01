@@ -102,7 +102,7 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
 
-      - name: Run Ansible Playbook 2
-        run: ansible-playbook -i inventory.ini ansible-playbook.yml
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: False
+      # - name: Run Ansible Playbook 2
+      #   run: ansible-playbook -i inventory.ini ansible-playbook.yml
+      #   env:
+      #     ANSIBLE_HOST_KEY_CHECKING: False
