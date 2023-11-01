@@ -1,26 +1,92 @@
-# ---
-# - hosts: ec2_instance
-#   remote_user: ec2_user
+# # ---
+# # - hosts: ec2_instance
+# #   remote_user: ec2_user
+# #   gather_facts: no
+# - name: Install Docker on EC2 instance
+#   hosts: ec2_instance
 #   gather_facts: no
-- name: Install Docker on EC2 instance
+#   become: yes
+#   vars:
+#     ansible_ssh_private_key_file: /home/runner/.ssh/id_rsa
+#     ansible_python_interpreter: /usr/bin/python3
+#     ansible_user: ec2-user
+#     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+#   tasks:
+#     - name: Install Docker
+#       become: yes
+#       apt:
+#         name: docker.io
+#         state: present
+
+#     - name: Run Docker Container
+#       become: yes
+#       docker_container:
+#         name: my-container
+#         image: your-docker-image:tag
+#         state: started
+ # Ansible playbook AWS - install docker (2021)
+---
+- name: "AWS - Install docker on EC2 instance"
   hosts: ec2_instance
   gather_facts: no
   become: yes
-  vars:
-    ansible_ssh_private_key_file: /home/runner/.ssh/id_rsa
-    ansible_python_interpreter: /usr/bin/python3
-    ansible_user: ec2-user
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
-    - name: Install Docker
-      become: yes
-      apt:
-        name: docker.io
-        state: present
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
 
-    - name: Run Docker Container
-      become: yes
-      docker_container:
-        name: my-container
-        image: your-docker-image:tag
+    - name: Ensure a list of yum packages are installed
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - python-pip
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - amazon-linux-extras
+
+    - name: Add extras repository
+      shell: yum-config-manager --enable extras
+
+    - name: Enable Some packages from amazon-linux-extras packages
+      shell: "amazon-linux-extras enable python3.8 ansible2 docker"
+
+    - name: clean yum metadata cache
+      command: yum clean metadata
+      args:
+        warn: false
+
+    - name: Ensure a list of yum packages are installed
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - python3.8
+        - ansible
+        - docker
+
+    - name: Enable Docker CE service at startup
+      service:
+        name: docker
         state: started
+        enabled: yes
+
+    - name: Upgrade pip3
+      shell: "python3.8 -m pip install pip --upgrade"
+
+    - name: Ensure Python pip packages are installed
+      pip:
+        name: "{{ packages }}"
+        executable: /usr/local/bin/pip3.8
+      vars:
+        packages:
+        - boto
+        - boto3
+        - docker-compose
