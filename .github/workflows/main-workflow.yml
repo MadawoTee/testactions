@@ -1,0 +1,23 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Terraform Deployment Workflow
+        uses: actions/workflow-dispatch@v2
+        with:
+          workflow: "Terraform Deployment"
+
+  trigger-ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Ansible Setup and Playbook Workflow
+        uses: actions/workflow-dispatch@v2
+        with:
+          workflow: "Ansible Setup and Playbook"

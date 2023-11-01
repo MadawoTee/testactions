@@ -1,10 +1,11 @@
-name: Build and Deploy to EC2
+name: Ansible Setup and Playbook
+# Build and Deploy to EC2
 
 on:
-  push:
-    branches:
-      - main
-  # workflow_dispatch:
+  workflow_run:
+    workflows: ["Terraform Deployment"]
+    types:
+      - completed
 
   workflow_run:
     workflows: ["Provision EC2"]

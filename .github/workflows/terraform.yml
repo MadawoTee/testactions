@@ -1,10 +1,9 @@
-name: Provision EC2
+name: Terraform Deployment
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main  
 
 env:
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
