@@ -103,7 +103,7 @@ jobs:
       #     ANSIBLE_HOST_KEY_CHECKING: False
 
       - name: Run Ansible Playbook Docker
-        run: ansible-playbook -i inventory.ini docker-playbook.yml
+        run: ansible-playbook -i inventory.ini playbook-copy.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
 
