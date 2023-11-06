@@ -34,6 +34,14 @@
     ansible_user: ec2-user
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
+    - name: Wait for SSH to come up
+        wait_for:
+          host: "{{ inventory_hostname }}"
+          port: 22
+          delay: 60
+          timeout: 900
+          state: started
+         
     - name: Install SSM Agent
       shell: "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb && dpkg -i amazon-ssm-agent.deb && systemctl enable amazon-ssm-agent && systemctl start amazon-ssm-agent"
 
@@ -42,7 +50,7 @@
       apt:
         name: docker.io
         update_cache: yes
-        
+
     - name: Package Installer For Python3 
       package:
         name: python3
