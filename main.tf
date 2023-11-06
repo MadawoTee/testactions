@@ -28,7 +28,7 @@ resource "tls_private_key" "example" {
 # }
 
 resource "aws_instance" "example" {
-  ami           = "ami-06ed60ed1369448bd" # Change to your desired AMI
+  ami           = "ami-0694d931cee176e7d" //"ami-06ed60ed1369448bd" # Change to your desired AMI
   instance_type = "t3.micro"
   key_name      = "ansibletestmanual"//aws_key_pair.example.key_name
   subnet_id                   = "subnet-0eeed545965bcc422"

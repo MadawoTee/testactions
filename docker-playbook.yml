@@ -1,8 +1,38 @@
----
-- name: Install Docker and Run Container
-  hosts: 34.254.187.136
-  become: yes
+# ---
+# - name: Install Docker and Run Container
+#   hosts: 34.254.187.136
+#   become: yes
 
+#   tasks:
+#     - name: Install SSM Agent
+#       shell: "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb && dpkg -i amazon-ssm-agent.deb && systemctl enable amazon-ssm-agent && systemctl start amazon-ssm-agent"
+
+
+#     - name: Install Docker
+#       apt:
+#         name: docker.io
+#         update_cache: yes
+
+#     - name: Start Docker Service
+#       service:
+#         name: docker
+#         state: started
+#         enabled: yes
+
+#     - name: Run Docker Container
+#       docker_container:
+#         name: my_container
+#         image: your_docker_image
+#         state: started
+- name: Install Docker and Run Container
+  hosts: ec2_instance
+  gather_facts: no
+  become: yes
+  vars:
+    ansible_ssh_private_key_file: /home/runner/.ssh/id_rsa
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_user: ec2-user
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
     - name: Install SSM Agent
       shell: "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb && dpkg -i amazon-ssm-agent.deb && systemctl enable amazon-ssm-agent && systemctl start amazon-ssm-agent"
@@ -12,6 +42,16 @@
       apt:
         name: docker.io
         update_cache: yes
+        
+    - name: Package Installer For Python3 
+      package:
+        name: python3
+        state: present
+
+    - name: Installing python library for the Docker Remote API
+      pip:
+        name: docker-py
+
 
     - name: Start Docker Service
       service:

@@ -97,14 +97,14 @@ jobs:
           echo '[ec2_instance]' > inventory.ini
           echo '${{ needs.runterraform.outputs.public_ip }}' >> inventory.ini
 
-      - name: Run Ansible Playbook
-        run: ansible-playbook -i inventory.ini playbook.yml
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: False
-
-      # - name: Run Ansible Playbook 2
-      #   run: ansible-playbook -i inventory.ini ansible-playbook.yml
+      # - name: Run Ansible Playbook NodeJs
+      #   run: ansible-playbook -i inventory.ini playbook.yml
       #   env:
       #     ANSIBLE_HOST_KEY_CHECKING: False
+
+      - name: Run Ansible Playbook Docker
+        run: ansible-playbook -i inventory.ini docker-playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
 
       # test five 6666
