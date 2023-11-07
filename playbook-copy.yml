@@ -7,6 +7,10 @@
     ansible_python_interpreter: /usr/bin/python3
     ansible_user: ubuntu
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    container_count: 4
+    default_container_name: docker
+    default_container_image: ubuntu
+    default_container_command: sleep 1d
   tasks:
     - name: Wait for SSH to come up
       wait_for:
@@ -15,36 +19,86 @@
         delay: 60
         timeout: 900
         state: started
-
-    - name: Gathering Facts
-      setup:
-    - name: Update all packages
-      dnf:
-        name: '*'
-        state: latest
-    - name: Install Docker
+    - name: Install aptitude
       apt:
-        name: docker.io
-        update_cache: yes
+        name: aptitude
+        state: latest
+        update_cache: true
 
-    - name: Package Installer For Python3 
-      package:
-        name: python3
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    - name: Installing python library for the Docker Remote API
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
       pip:
-        name: docker-py
-
-
-    - name: Start Docker Service
-      service:
         name: docker
-        state: started
-        enabled: yes
 
-    - name: Run Docker Container
-      docker_container:
-        name: my_container
-        image: your_docker_image
-        state: started
+    - name: Pull default Docker image
+      community.docker.docker_image:
+        name: "{{ default_container_image }}"
+        source: pull
+
+    - name: Create default containers
+      community.docker.docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        image: "{{ default_container_image }}"
+        command: "{{ default_container_command }}"
+        state: present
+      with_sequence: count={{ container_count }}
+    # - name: Gathering Facts
+    #   setup:
+    # - name: Update all packages
+    #   dnf:
+    #     name: '*'
+    #     state: latest
+    # - name: Install Docker
+    #   apt:
+    #     name: docker.io
+    #     update_cache: yes
+
+    # - name: Package Installer For Python3 
+    #   package:
+    #     name: python3
+    #     state: present
+
+    # - name: Installing python library for the Docker Remote API
+    #   pip:
+    #     name: docker-py
+
+
+    # - name: Start Docker Service
+    #   service:
+    #     name: docker
+    #     state: started
+    #     enabled: yes
+
+    # - name: Run Docker Container
+    #   docker_container:
+    #     name: my_container
+    #     image: your_docker_image
+    #     state: started
